@@ -1,30 +1,40 @@
-# React Fundamentals mentoring program Q3 2023
+# Getting Started with Netflix Roulette App
 
-Welcome to the repository for React mentoring program of Q3 2023, group of mentees Zsofia Dedeo, Boris Topolnjak and mentor Adam Pisky-Nagy.
+This project was part of a ReactJS Global Mentoring Program [2023 Q3-Q4 EU].
 
-## Instructions
+## Available Scripts
 
-Please make sure to add this repository as one of your remotes with the following instructions:
+In the project directory, you can run:
 
-In the root directory of your project type the following command:
+### `npm start`
 
-git remote add mentoring https://gitbud.epam.com/adam_pisky-nagy/react-fundamentals-mentoring-q3-2023
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-*you can choose to replace 'mentoring' in the above command as you like, this is your remote name
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-After setting up the remote you will be able to push your progress via the git command:
+### `npm test`
 
-git push mentoring [YOUR_BRANCH_NAME]-task[TASK_NUMBER]
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-[YOUR_BRANCH_NAME] is either zsofia or boris respectively, I have already set these up.
-  [TASK_NUMBER] is the task No.
+### `npm run build`
 
-Please use the above branch naming format for each task (e.g. zsofia-task2).
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-You can still push your changes to your own repository, if you have any with
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-git push [YOUR_BRANCH_NAME]-task[TASK_NUMBER]
-  or
-  git push origin [YOUR_BRANCH_NAME]-task[TASK_NUMBER]
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-When you push your progress to this repository and mark 'Needs review' on Learning portal I will review your changes and when everything is alright I will merge your task to your main branches(namely zsofia and boris), no need to worry about that in this repository. You can make changes to your own repository(if you are using one, which I highly recommend) as you wish, of course.
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.

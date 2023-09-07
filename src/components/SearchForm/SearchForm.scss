@@ -1,0 +1,36 @@
+@use "../../styles/colors.scss";
+@use "../../styles/mixins.scss";
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+  gap: 1rem;
+
+  &__button {
+    @include mixins.button;
+    color: colors.$white;
+    background: colors.$red;
+  }
+
+  &__button:hover {
+    background: colors.$gray;
+  }
+
+  &__input {
+    @include mixins.input;
+    width: 100%;
+    padding-left: 1rem;
+    font-size: 1.25rem;
+    line-height: 1.524rem;
+    color: colors.$white;
+    background-color: #323232;
+    mix-blend-mode: normal;
+    opacity: 0.5;
+  }
+
+  &__input:focus {
+    outline: none;
+    opacity: 1;
+  }
+}

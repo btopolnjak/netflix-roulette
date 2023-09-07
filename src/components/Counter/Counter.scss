@@ -1,0 +1,26 @@
+@use "../../styles/colors.scss";
+@use "../../styles/mixins.scss";
+
+.counter {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.25rem;
+
+  &__number {
+    color: colors.$white;
+    min-width: 3rem;
+    text-align: center;
+  }
+
+  &__button {
+    @include mixins.button;
+    color: colors.$white;
+    background: colors.$red;
+  }
+
+  &__button:hover {
+    background: colors.$gray;
+  }
+}
