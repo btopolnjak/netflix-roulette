@@ -1,9 +1,12 @@
+import { spawn, ChildProcess } from "child_process";
+
+let reactApp: ChildProcess | null = null;
+
 export const config: WebdriverIO.Config = {
   before: async () => {
-    const { spawn } = require("child_process");
-    const reactApp = spawn("npm", ["run", "start"], {
+    reactApp = spawn("npm", ["run", "start"], {
       cwd: ".",
-      stdio: "inherit",
+      stdio: "ignore",
     });
     await new Promise((resolve) => setTimeout(resolve, 5000));
   },
@@ -22,6 +25,9 @@ export const config: WebdriverIO.Config = {
     {
       browserName: "chrome",
       acceptInsecureCerts: true,
+      "goog:chromeOptions": {
+        args: ["--headless", "--disable-gpu"],
+      },
     },
   ],
   logLevel: "info",
