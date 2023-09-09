@@ -1,8 +1,9 @@
-import React from "react";
-import { Counter, SearchForm } from "../components/";
+import { Counter, CounterProps, SearchForm, SearchFormProps } from "../components";
 import "../styles/layout.scss";
 
-function Header(props) {
+type HeaderProps = CounterProps & SearchFormProps;
+
+function Header(props: HeaderProps) {
   return (
     <div className="layout__header">
       <Counter {...props} />

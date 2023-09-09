@@ -1,7 +1,4 @@
-import Header from "./layout/Header";
-import Main from "./layout/Main";
-import Footer from "./layout/Footer";
-
+import { Header, Main, Footer } from "./layout";
 import { MOVIE_GENRES } from "./constants/genres";
 import "./styles/index.scss";
 
@@ -10,11 +7,11 @@ function App() {
   const initialSearchValue = "Example movie title";
   const defaultSelectedGenre = MOVIE_GENRES[0];
 
-  const onSearch = (movie) => {
+  const onSearch = (movie: string) => {
     alert(`You searched for "${movie}"`);
   };
 
-  const onSelect = (genre) => {
+  const onSelect = (genre: string) => {
     alert(`You have choosen "${genre}" category`);
   };
 

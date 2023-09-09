@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import { CounterProps, CounterState } from "./Counter.types";
 import "./Counter.scss";
 
-class Counter extends Component {
-  constructor(props) {
+class Counter extends Component<CounterProps, CounterState> {
+  constructor(props: CounterProps) {
     super(props);
     const { initialCounterValue } = props;
     this.state = { count: initialCounterValue };
