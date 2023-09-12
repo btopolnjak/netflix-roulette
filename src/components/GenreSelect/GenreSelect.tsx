@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
+import { GenreSelectProps } from "./GenreSelect.types";
 import "./GenreSelect.scss";
 
-function GenreSelect({ defaultSelectedGenre, movieGenres, onSelect }) {
+function GenreSelect({ defaultSelectedGenre, movieGenres, onSelect }: GenreSelectProps) {
   const [selectedGenre, setSelectedGenre] = useState(defaultSelectedGenre);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSelectedGenre(e.target.value);
     onSelect(e.target.value);
   };

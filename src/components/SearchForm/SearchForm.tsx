@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
+import { SearchFormProps } from "./SearchForm.types";
 import "./SearchForm.scss";
 
-function SearchForm({ initialSearchValue, onSearch }) {
+function SearchForm({ initialSearchValue, onSearch }: SearchFormProps) {
   const [inputField, setInputField] = useState(initialSearchValue);
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!inputField) return;
     onSearch(inputField);
   };
 
   return (
-    <form className="search-form">
+    <form className="search-form" onSubmit={handleSearch}>
       <input
         type="text"
         name="search"
@@ -21,7 +22,7 @@ function SearchForm({ initialSearchValue, onSearch }) {
         onChange={(e) => setInputField(e.target.value)}
         className="search-form__input"
       />
-      <input type="submit" value="search" onClick={handleSearch} className="search-form__button" />
+      <input type="submit" value="search" className="search-form__button" />
     </form>
   );
 }

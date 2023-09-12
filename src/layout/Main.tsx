@@ -1,8 +1,7 @@
-import React from "react";
-import { GenreSelect } from "../components";
+import { GenreSelect, GenreSelectProps } from "../components";
 import "../styles/layout.scss";
 
-function Main(props) {
+function Main(props: GenreSelectProps) {
   return (
     <div className="layout__main">
       <GenreSelect {...props} />
