@@ -2,42 +2,44 @@ import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import GenreSelect from "./GenreSelect";
 import { MOVIE_GENRES } from "../../constants/genres";
 
-let renderedGenres: HTMLInputElement[];
-const GenreSelectProps = {
-  defaultSelectedGenre: MOVIE_GENRES[0],
-  movieGenres: MOVIE_GENRES,
-  onGenreSelect: jest.fn(),
-};
+describe("Genre Select component", () => {
+  let renderedGenres: HTMLInputElement[];
+  const GenreSelectProps = {
+    defaultSelectedGenre: MOVIE_GENRES[0],
+    movieGenres: MOVIE_GENRES,
+    onGenreSelect: jest.fn(),
+  };
 
-afterEach(cleanup);
+  afterEach(cleanup);
 
-it("should render all genres passed in props", () => {
-  render(<GenreSelect {...GenreSelectProps} />);
+  it("should render all genres passed in props", () => {
+    render(<GenreSelect {...GenreSelectProps} />);
 
-  const { movieGenres } = GenreSelectProps;
-  renderedGenres = screen.getAllByRole("radio");
+    const { movieGenres } = GenreSelectProps;
+    renderedGenres = screen.getAllByRole("radio");
 
-  expect(renderedGenres.length).toBe(movieGenres.length);
-});
-
-it("should highlight a selected genre passed in props", () => {
-  render(<GenreSelect {...GenreSelectProps} />);
-
-  const { defaultSelectedGenre } = GenreSelectProps;
-  const highlightedGenre = screen.getAllByRole("radio", {
-    name: defaultSelectedGenre,
+    expect(renderedGenres.length).toBe(movieGenres.length);
   });
 
-  expect(highlightedGenre).toBeTruthy();
-});
+  it("should highlight a selected genre passed in props", () => {
+    render(<GenreSelect {...GenreSelectProps} />);
 
-it("should call 'onChange' and pass correct genre in arguments after a click event on a genre button", () => {
-  render(<GenreSelect {...GenreSelectProps} />);
+    const { defaultSelectedGenre } = GenreSelectProps;
+    const highlightedGenre = screen.getAllByRole("radio", {
+      name: defaultSelectedGenre,
+    });
 
-  const { onGenreSelect } = GenreSelectProps;
-  renderedGenres = screen.getAllByRole("radio");
+    expect(highlightedGenre).toBeTruthy();
+  });
 
-  fireEvent.click(renderedGenres[2]);
+  it("should call 'onChange' and pass correct genre in arguments after a click event on a genre button", () => {
+    render(<GenreSelect {...GenreSelectProps} />);
 
-  expect(onGenreSelect).toBeCalledWith(renderedGenres[2].value);
+    const { onGenreSelect } = GenreSelectProps;
+    renderedGenres = screen.getAllByRole("radio");
+
+    fireEvent.click(renderedGenres[2]);
+
+    expect(onGenreSelect).toBeCalledWith(renderedGenres[2].value);
+  });
 });

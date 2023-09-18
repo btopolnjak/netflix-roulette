@@ -1,27 +1,29 @@
 import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import SearchButton from "./SearchButton";
 
-const SearchButtonProps = {
-  onSearchClick: jest.fn(),
-};
+describe("Search Button component", () => {
+  const SearchButtonProps = {
+    onSearchClick: jest.fn(),
+  };
 
-afterEach(cleanup);
+  afterEach(cleanup);
 
-it("should render the component", () => {
-  render(<SearchButton {...SearchButtonProps} />);
+  it("should render the component", () => {
+    render(<SearchButton {...SearchButtonProps} />);
 
-  const button = screen.getByRole("button");
+    const button = screen.getByRole("button");
 
-  expect(button).toBeInTheDocument();
-});
+    expect(button).toBeInTheDocument();
+  });
 
-it("should call 'onSearchClick' on 'click' event", () => {
-  render(<SearchButton {...SearchButtonProps} />);
+  it("should call 'onSearchClick' on 'click' event", () => {
+    render(<SearchButton {...SearchButtonProps} />);
 
-  const { onSearchClick } = SearchButtonProps;
-  const button = screen.getByRole("button");
+    const { onSearchClick } = SearchButtonProps;
+    const button = screen.getByRole("button");
 
-  fireEvent.click(button);
+    fireEvent.click(button);
 
-  expect(onSearchClick).toBeCalled();
+    expect(onSearchClick).toBeCalled();
+  });
 });
