@@ -1,0 +1,43 @@
+@use "../../styles/colors";
+
+.movie-tile {
+  width: 300px;
+  color: colors.$light-gray;
+  font-size: 0.85rem;
+  font-family: "Montserrat", sans-serif;
+  display: grid;
+  grid-template-rows: 1fr min-content min-content;
+  grid-template-columns: 1fr min-content;
+  grid-template-areas:
+    "image image"
+    "name year"
+    "genre genre";
+
+  &__image {
+    grid-area: image;
+    align-self: stretch;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    background-color: colors.$light-gray;
+  }
+
+  &__name {
+    grid-area: name;
+    color: colors.$white;
+    font-size: 1.25rem;
+  }
+
+  &__year {
+    grid-area: year;
+    align-self: start;
+    border: solid 0.1rem colors.$gray;
+    border-radius: 0.25rem;
+    padding: 0.25rem 1rem;
+  }
+
+  &__genre {
+    grid-area: genre;
+    margin-top: 0.25rem;
+  }
+}

@@ -1,0 +1,73 @@
+@use "../../styles/colors";
+
+.movie-details {
+  display: grid;
+  grid-template-columns: 24.75rem auto min-content 1fr;
+  grid-template-rows: max-content auto auto 1fr;
+  grid-template-areas:
+    "poster title rate none"
+    "poster genres genres genres"
+    "poster release-date release-date release-date"
+    "poster description description description";
+  font-family: "Montserrat", sans-serif;
+
+  &__poster {
+    grid-area: poster;
+    width: 100%;
+  }
+
+  &__title {
+    grid-area: title;
+    padding-left: 3rem;
+    align-self: center;
+    font-weight: 300;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    color: colors.$white;
+  }
+
+  &__rate {
+    grid-area: rate;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: colors.$white;
+    border: solid 1px colors.$white;
+    border-radius: 50%;
+  }
+
+  &__genres {
+    grid-area: genres;
+    padding-left: 3rem;
+    margin: 1rem 0;
+    font-size: 0.875rem;
+    color: colors.$light-gray;
+  }
+
+  &__release-date {
+    grid-area: release-date;
+    padding-left: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: colors.$red;
+  }
+
+  &__runtime {
+    margin-left: 2rem;
+  }
+
+  &__description {
+    grid-area: description;
+    padding-left: 3rem;
+    font-weight: 300;
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+    color: colors.$light-gray;
+  }
+}

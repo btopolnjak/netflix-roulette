@@ -17,5 +17,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "wdio.conf.js"]
+  "include": ["src", "wdio.conf.js", "index.types.ts"]
 }

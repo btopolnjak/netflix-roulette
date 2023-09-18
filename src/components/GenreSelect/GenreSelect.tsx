@@ -2,18 +2,18 @@ import { useState, ChangeEvent } from "react";
 import { GenreSelectProps } from "./GenreSelect.types";
 import "./GenreSelect.scss";
 
-function GenreSelect({ defaultSelectedGenre, movieGenres, onSelect }: GenreSelectProps) {
+function GenreSelect({ defaultSelectedGenre, movieGenres, onGenreSelect }: GenreSelectProps) {
   const [selectedGenre, setSelectedGenre] = useState(defaultSelectedGenre);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSelectedGenre(e.target.value);
-    onSelect(e.target.value);
+    onGenreSelect(e.target.value);
   };
 
   return (
     <div className="genre-select">
       <div className="genre-select__menu">
-        {movieGenres.map((name) => {
+        {movieGenres.map((name: any) => {
           return (
             <label key={name}>
               <input

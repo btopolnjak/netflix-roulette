@@ -6,7 +6,7 @@ let renderedGenres: HTMLInputElement[];
 const GenreSelectProps = {
   defaultSelectedGenre: MOVIE_GENRES[0],
   movieGenres: MOVIE_GENRES,
-  onSelect: jest.fn(),
+  onGenreSelect: jest.fn(),
 };
 
 afterEach(cleanup);
@@ -34,10 +34,10 @@ it("should highlight a selected genre passed in props", () => {
 it("should call 'onChange' and pass correct genre in arguments after a click event on a genre button", () => {
   render(<GenreSelect {...GenreSelectProps} />);
 
-  const { onSelect } = GenreSelectProps;
+  const { onGenreSelect } = GenreSelectProps;
   renderedGenres = screen.getAllByRole("radio");
 
   fireEvent.click(renderedGenres[2]);
 
-  expect(onSelect).toBeCalledWith(renderedGenres[2].value);
+  expect(onGenreSelect).toBeCalledWith(renderedGenres[2].value);
 });

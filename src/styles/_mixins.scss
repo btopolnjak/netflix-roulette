@@ -18,3 +18,8 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
 }
+
+@mixin flex-vertical-center {
+  display: flex;
+  align-items: center;
+}

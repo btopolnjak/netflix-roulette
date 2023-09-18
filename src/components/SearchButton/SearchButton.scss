@@ -1,0 +1,9 @@
+@use "../../styles/colors";
+
+.search-button {
+  color: colors.$red;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}

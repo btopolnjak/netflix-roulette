@@ -20,12 +20,15 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "wdio": "wdio run ./wdio.conf.ts",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:storybook/recommended"
     ]
   },
   "browserslist": {
@@ -42,16 +45,32 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@storybook/addon-essentials": "^7.4.2",
+    "@storybook/addon-interactions": "^7.4.2",
+    "@storybook/addon-links": "^7.4.2",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.4.2",
+    "@storybook/manager-api": "^7.4.2",
+    "@storybook/preset-create-react-app": "^7.4.2",
+    "@storybook/react": "^7.4.2",
+    "@storybook/react-webpack5": "^7.4.2",
+    "@storybook/testing-library": "^0.2.1",
+    "@storybook/theming": "^7.4.2",
     "@wdio/cli": "^8.16.5",
     "@wdio/local-runner": "^8.16.5",
     "@wdio/mocha-framework": "^8.16.3",
     "@wdio/spec-reporter": "^8.16.3",
+    "babel-plugin-named-exports-order": "^0.0.2",
     "chromedriver": "^116.0.0",
+    "eslint-plugin-storybook": "^0.6.13",
     "npm-run-all": "^4.1.5",
+    "prop-types": "^15.8.1",
     "sass": "^1.66.1",
+    "storybook": "^7.4.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
     "wdio-chromedriver-service": "^8.1.1",
-    "webdriverio": "^8.16.5"
+    "webdriverio": "^8.16.5",
+    "webpack": "^5.88.2"
   }
 }
