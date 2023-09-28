@@ -1,9 +1,9 @@
-import { useEffect, useState, ComponentType } from "react";
-import { getMovies, getDialogType } from "./utilities";
+import { useEffect, useState } from "react";
+import { getMovies, getDialogType, getDialogTitle } from "./utilities";
 import { Header, Main, Footer } from "./layout";
 import { Dialog } from "./components";
 import { MOVIE_GENRES, SORT_OPTIONS } from "./constants";
-import { MovieInfo, MovieList } from "./types";
+import { MovieInfo, MovieList, DialogState } from "./types";
 import "./styles/index.scss";
 
 function App() {
@@ -13,8 +13,7 @@ function App() {
   const [currentSort, setCurrentSort] = useState<string>(SORT_OPTIONS[0]);
   const [movieList, setMovieList] = useState<MovieList | []>([]);
   const [movieInfo, setMovieInfo] = useState<MovieInfo | undefined>(undefined);
-  const [dialogMovieInfo, setDialogMovieInfo] = useState<MovieInfo | undefined>(undefined);
-  const [ShowDialogComponent, setShowDialogComponent] = useState<ComponentType<any> | null>(null);
+  const [showDialog, setShowDialog] = useState<DialogState | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -30,25 +29,25 @@ function App() {
   };
 
   const onDialogOpen = (name: string, id: number | null) => {
-    const movieInfo = movieList.find((movie) => movie.id === id);
-    const dialogType = getDialogType(name);
-    console.log("dialogType", dialogType);
-    setDialogMovieInfo(movieInfo);
-    setShowDialogComponent(() => dialogType);
+    setShowDialog({
+      Component: getDialogType(name),
+      dialogTitle: getDialogTitle(name),
+      dialogMovieInfo: movieList.find((movie) => movie.id === id),
+    });
   };
 
+  const onSubmit = () => setShowDialog(null);
   const onSearch = (movie: string) => alert(`You searched for "${movie}"`);
   const onGenreSelect = (genre: string) => alert(`You have choosen "${genre}" category`);
   const onSortChange = (conditon: string) => setCurrentSort(conditon);
   const onSearchClick = () => setMovieInfo(undefined);
-  const onDialogClose = () => setShowDialogComponent(null);
+  const onDialogClose = () => setShowDialog(null);
 
-  console.log("ShowDialogComponent", ShowDialogComponent);
   return (
     <>
-      {ShowDialogComponent && (
-        <Dialog onDialogClose={onDialogClose}>
-          <ShowDialogComponent dialogMovieInfo={dialogMovieInfo} />
+      {showDialog && showDialog.Component && (
+        <Dialog dialogTitle={showDialog.dialogTitle} onDialogClose={onDialogClose}>
+          <showDialog.Component dialogMovieInfo={showDialog.dialogMovieInfo} onSubmit={onSubmit} />
         </Dialog>
       )}
       <div className="layout">

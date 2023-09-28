@@ -3,14 +3,14 @@ import { MovieFormProps } from "./MovieForm.types";
 import { getCurrentDate } from "../../utilities";
 import "./MovieForm.scss";
 
-function MovieForm({ dialogMovieInfo }: MovieFormProps) {
+function MovieForm({ dialogMovieInfo, onSubmit }: MovieFormProps) {
   const { title, releaseDate, posterPath, voteAverage, genres, runtime, overview } =
     dialogMovieInfo ?? {};
-
   const currentDate = getCurrentDate();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    onSubmit();
   };
 
   return (

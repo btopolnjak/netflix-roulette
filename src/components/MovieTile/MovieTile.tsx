@@ -12,7 +12,7 @@ function MovieTile({ movieInfo, onPosterClick, onDialogOpen }: MovieTileProps) {
     onPosterClick(id);
   };
   const handleEditClick = () => {
-    onDialogOpen("MovieForm", id);
+    onDialogOpen("editMovie", id);
   };
   const handleDeleteClick = () => {
     onDialogOpen("deleteMovie", id);

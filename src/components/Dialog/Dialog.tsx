@@ -3,14 +3,16 @@ import { MouseEvent } from "react";
 import { DialogProps } from "./Dialog.types";
 import "./Dialog.scss";
 
-function Dialog({ children, onDialogClose }: DialogProps) {
+function Dialog({ dialogTitle, children, onDialogClose }: DialogProps) {
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
     onDialogClose();
   };
+
   return ReactDOM.createPortal(
     <div className="dialog">
       <div className="dialog__wrapper">
+        <div className="dialog__title">{dialogTitle}</div>
         <button className="dialog__close-button" onClick={handleClick}>
           <svg height="100" viewBox="0 0 100 100" width="100">
             <path
