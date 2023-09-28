@@ -47,6 +47,11 @@
       justify-content: space-between;
       gap: 3rem;
     }
+
+    &__tiles::after {
+      content: "";
+      flex: auto;
+    }
   }
 
   &__footer {

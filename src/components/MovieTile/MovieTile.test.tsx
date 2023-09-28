@@ -20,6 +20,7 @@ describe("Movie Tile component", () => {
       runtime: 134,
     },
     onPosterClick: jest.fn(),
+    onDialogOpen: jest.fn(),
   };
 
   afterEach(cleanup);

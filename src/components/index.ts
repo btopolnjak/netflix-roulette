@@ -7,6 +7,8 @@ export { default as MovieDetails } from "./MovieDetails/MovieDetails";
 export { default as Poster } from "./Poster/Poster";
 export { default as SearchButton } from "./SearchButton/SearchButton";
 export { default as Logo } from "./Logo/Logo";
+export { default as Dialog } from "./Dialog/Dialog";
+export { default as MovieForm } from "./MovieForm/MovieForm";
 
 export type { CounterProps } from "./Counter/Counter.types";
 export type { GenreSelectProps } from "./GenreSelect/GenreSelect.types";
@@ -16,3 +18,5 @@ export type { MovieTileProps } from "./MovieTile/MovieTile.types";
 export type { MovieDetailsProps } from "./MovieDetails/MovieDetails.types";
 export type { PosterProps } from "./Poster/Poster.types";
 export type { SearchButtonProps } from "./SearchButton/SearchButton.types";
+export type { DialogProps } from "./Dialog/Dialog.types";
+export type { MovieFormProps } from "./MovieForm/MovieForm.types";
