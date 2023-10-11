@@ -2,22 +2,24 @@ import { useEffect, useState } from "react";
 import { getMovies, getDialogType, getDialogTitle } from "./utilities";
 import { Header, Main, Footer } from "./layout";
 import { Dialog } from "./components";
-import { MOVIE_GENRES, SORT_OPTIONS } from "./constants";
-import { MovieInfo, MovieList, DialogState } from "./types";
+import { MOVIE_GENRES, SORT_OPTIONS, APP_CONSTANTS } from "./constants";
+import { MovieInfo, MovieList, DialogState, SortControl } from "./types";
 import "./styles/index.scss";
 
 function App() {
-  const initialSearchValue = "Example movie title";
-  const defaultSelectedGenre = MOVIE_GENRES[0];
+  const { INITIAL_SEARCH_VALUE, DEFAULT_GENRE, DEFAULT_SORT_OPTION } = APP_CONSTANTS;
 
-  const [currentSort, setCurrentSort] = useState<string>(SORT_OPTIONS[0]);
+  const [currentSort, setCurrentSort] = useState<SortControl>(SORT_OPTIONS[DEFAULT_SORT_OPTION]);
+  const [currentGenre, setCurrentGenre] = useState(MOVIE_GENRES[DEFAULT_GENRE]);
+  const [currentSearch, setCurrentSearch] = useState(INITIAL_SEARCH_VALUE);
+
   const [movieList, setMovieList] = useState<MovieList | []>([]);
   const [movieInfo, setMovieInfo] = useState<MovieInfo | undefined>(undefined);
   const [showDialog, setShowDialog] = useState<DialogState | null>(null);
 
   useEffect(() => {
     (async () => {
-      const movies = await getMovies("sampleURL");
+      const movies = await getMovies({ movie: "", genre: currentGenre, sort: currentSort.query });
       setMovieList(movies);
     })();
   }, []);
@@ -36,10 +38,29 @@ function App() {
     });
   };
 
+  const onSearch = (movie: string) => {
+    getMovies({ movie, genre: currentGenre, sort: currentSort.query })
+      .then(setMovieList)
+      .catch(console.log);
+    setCurrentSearch(movie);
+  };
+
+  const onGenreSelect = (genre: string) => {
+    getMovies({ movie: currentSearch, genre, sort: currentSort.query })
+      .then(setMovieList)
+      .catch(console.log);
+    setCurrentGenre(genre);
+  };
+
+  const onSortChange = (sort: string) => {
+    const updatedSort = SORT_OPTIONS.find((option) => option.query === sort);
+    getMovies({ movie: currentSearch, genre: currentGenre, sort })
+      .then(setMovieList)
+      .catch(console.log);
+    updatedSort && setCurrentSort(updatedSort);
+  };
+
   const onSubmit = () => setShowDialog(null);
-  const onSearch = (movie: string) => alert(`You searched for "${movie}"`);
-  const onGenreSelect = (genre: string) => alert(`You have choosen "${genre}" category`);
-  const onSortChange = (conditon: string) => setCurrentSort(conditon);
   const onSearchClick = () => setMovieInfo(undefined);
   const onDialogClose = () => setShowDialog(null);
 
@@ -54,7 +75,7 @@ function App() {
         <Header
           onSearchClick={onSearchClick}
           onSearch={onSearch}
-          initialSearchValue={initialSearchValue}
+          initialSearchValue={INITIAL_SEARCH_VALUE}
           movieInfo={movieInfo}
         />
         <Main
@@ -62,7 +83,7 @@ function App() {
           onPosterClick={onPosterClick}
           onSortChange={onSortChange}
           onDialogOpen={onDialogOpen}
-          defaultSelectedGenre={defaultSelectedGenre}
+          defaultSelectedGenre={MOVIE_GENRES[DEFAULT_GENRE]}
           movieGenres={MOVIE_GENRES}
           movieList={movieList}
           currentSort={currentSort}

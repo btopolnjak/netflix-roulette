@@ -16,12 +16,12 @@ function SortControl({ currentSort, onSortChange }: SortControlProps) {
         className="sort-control__select"
         name="sort"
         onChange={handleChange}
-        defaultValue={currentSort}
+        defaultValue={currentSort.label}
       >
         {SORT_OPTIONS.map((option) => {
           return (
-            <option key={option} value={option}>
-              {option}
+            <option key={option.query} value={option.query}>
+              {option.label}
             </option>
           );
         })}
