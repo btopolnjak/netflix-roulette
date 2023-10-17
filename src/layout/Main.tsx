@@ -11,12 +11,16 @@ import "../styles/layout.scss";
 
 type MainProps = GenreSelectProps &
   Omit<MovieTileProps, "movieInfo"> &
-  SortControlProps & { movieList: MovieList };
+  SortControlProps & {
+    movieList: MovieList;
+    onDialogOpen: (name: string, id: number | null) => void;
+  };
 
 function Main({
   onGenreSelect,
   onPosterClick,
   onSortChange,
+  onDialogOpen,
   defaultSelectedGenre,
   movieGenres,
   movieList,
@@ -38,7 +42,14 @@ function Main({
       </div>
       <div className="layout__main__tiles">
         {movieList.map((movie) => {
-          return <MovieTile key={movie.id} movieInfo={movie} onPosterClick={onPosterClick} />;
+          return (
+            <MovieTile
+              key={movie.id}
+              movieInfo={movie}
+              onPosterClick={onPosterClick}
+              onDialogOpen={onDialogOpen}
+            />
+          );
         })}
       </div>
     </div>
