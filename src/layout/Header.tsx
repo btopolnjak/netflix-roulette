@@ -11,7 +11,7 @@ import { MovieInfo } from "../types";
 
 import "../styles/layout.scss";
 
-type HeaderProps = SearchFormProps & SearchButtonProps & { movieInfo: MovieInfo | undefined };
+type HeaderProps = SearchFormProps & SearchButtonProps & { movieInfo: MovieInfo | null };
 
 function Header({ onSearchClick, onSearch, initialSearchValue, movieInfo }: HeaderProps) {
   return (

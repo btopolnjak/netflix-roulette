@@ -6,13 +6,13 @@ import {
   SortControl,
   SortControlProps,
 } from "../components";
-import { MovieList } from "../types";
+import { MovieInfo } from "../types";
 import "../styles/layout.scss";
 
 type MainProps = GenreSelectProps &
   Omit<MovieTileProps, "movieInfo"> &
   SortControlProps & {
-    movieList: MovieList;
+    movieList: MovieInfo[];
     onDialogOpen: (name: string, id: number | null) => void;
   };
 
