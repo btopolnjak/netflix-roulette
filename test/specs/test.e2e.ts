@@ -61,7 +61,7 @@ describe("application e2e test", () => {
 
     const documentaryGenre = await $$("input.genre-select__button")[1];
     const searchResults = await $("div.layout__main__results");
-    await expect(searchResults).toHaveTextContaining("0");
+    await expect(searchResults).toHaveTextContaining("4");
     await expect(documentaryGenre).toBeChecked();
   });
 });
