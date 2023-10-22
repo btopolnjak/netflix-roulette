@@ -14,4 +14,4 @@ const defaultSelectedGenre = "All";
 const movieGenres = MOVIE_GENRES;
 
 export const GenreSelectComponent = Template.bind({});
-GenreSelectComponent.args = { movieGenres, defaultSelectedGenre };
+GenreSelectComponent.args = { defaultSelectedGenre };

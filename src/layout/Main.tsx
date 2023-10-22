@@ -18,22 +18,16 @@ type MainProps = GenreSelectProps &
 
 function Main({
   onGenreSelect,
-  onPosterClick,
   onSortChange,
   onDialogOpen,
   defaultSelectedGenre,
-  movieGenres,
   movieList,
   currentSort,
 }: MainProps) {
   return (
     <div className="layout__main">
       <div className="layout__main__menu">
-        <GenreSelect
-          defaultSelectedGenre={defaultSelectedGenre}
-          onGenreSelect={onGenreSelect}
-          movieGenres={movieGenres}
-        />
+        <GenreSelect defaultSelectedGenre={defaultSelectedGenre} onGenreSelect={onGenreSelect} />
         <SortControl currentSort={currentSort} onSortChange={onSortChange} />
       </div>
       <div className="layout__main__results">
@@ -42,14 +36,7 @@ function Main({
       </div>
       <div className="layout__main__tiles">
         {movieList.map((movie) => {
-          return (
-            <MovieTile
-              key={movie.id}
-              movieInfo={movie}
-              onPosterClick={onPosterClick}
-              onDialogOpen={onDialogOpen}
-            />
-          );
+          return <MovieTile key={movie.id} movieInfo={movie} onDialogOpen={onDialogOpen} />;
         })}
       </div>
     </div>

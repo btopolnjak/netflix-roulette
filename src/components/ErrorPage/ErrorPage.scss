@@ -1,0 +1,26 @@
+@use "../../styles/colors";
+@use "../../styles/mixins.scss";
+
+.error-page {
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+  text-align: center;
+  color: colors.$white;
+
+  &__title {
+    color: colors.$red;
+    font-size: 3rem;
+  }
+
+  &__text {
+    font-size: 1.25rem;
+    line-height: 2.25rem;
+  }
+
+  &__button {
+    @include mixins.button;
+    background-color: colors.$red;
+    margin-top: 3rem;
+  }
+}

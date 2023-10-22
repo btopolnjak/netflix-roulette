@@ -6,7 +6,6 @@ describe("Poster component", () => {
     id: 0,
     posterPath: "poster url",
     className: "poster classname",
-    onPosterClick: jest.fn(),
   };
 
   afterEach(cleanup);
@@ -17,16 +16,5 @@ describe("Poster component", () => {
     const poster = screen.getByRole("img");
 
     expect(poster).toBeInTheDocument();
-  });
-
-  it("should call 'onPosterClick' on 'click' event", () => {
-    render(<Poster {...PosterProps} />);
-
-    const { onPosterClick } = PosterProps;
-    const poster = screen.getByRole("img");
-
-    fireEvent.click(poster);
-
-    expect(onPosterClick).toBeCalled();
   });
 });

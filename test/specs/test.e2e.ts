@@ -46,12 +46,12 @@ describe("application e2e test", () => {
     const sortMenu = await $("select.sort-control__select");
 
     const firstMovieBefore = await $$("div.movie-tile__name")[0];
-    await expect(firstMovieBefore).toHaveTextContaining("The Avengers");
+    await expect(firstMovieBefore).toHaveTextContaining("The Gold Rush");
 
     await sortMenu.selectByAttribute("value", "title");
 
     const firstMovieAfter = await $$("div.movie-tile__name")[0];
-    await expect(firstMovieAfter).toHaveTextContaining("Avengers: Age of Ultron");
+    await expect(firstMovieAfter).toHaveTextContaining("¡Three Amigos!");
   });
 
   it("should change sorting genre to 'Documentary'", async () => {
@@ -61,7 +61,77 @@ describe("application e2e test", () => {
 
     const documentaryGenre = await $$("input.genre-select__button")[1];
     const searchResults = await $("div.layout__main__results");
-    await expect(searchResults).toHaveTextContaining("4");
+    await expect(searchResults).toHaveTextContaining("0");
     await expect(documentaryGenre).toBeChecked();
+  });
+});
+
+describe("react-router-dom e2e test", () => {
+  it("should render app with 10 movies", async () => {
+    await browser.url("/");
+
+    const movieTileImage = await $("img.movie-tile__image");
+    const searchResults = await $("div.layout__main__results");
+
+    await expect(movieTileImage).toBeDisplayed();
+    await expect(searchResults).toHaveTextContaining("10");
+  });
+
+  it("should render movie details", async () => {
+    await browser.url("/299536");
+
+    const movieTitle = await $("div.movie-details__title");
+    const movieDescription = await $("div.movie-details__description");
+
+    await expect(movieDescription).toBeDisplayed();
+    await expect(movieTitle).toHaveTextContaining("AVENGERS: INFINITY WAR");
+  });
+
+  it("should search for movie", async () => {
+    await browser.url("/?search=Avengers");
+
+    const movieTileImage = await $("img.movie-tile__image");
+    const searchResults = await $("div.layout__main__results");
+    const inputField = await $("input.search-form__input");
+
+    await expect(movieTileImage).toBeDisplayed();
+    await expect(searchResults).toHaveTextContaining("4");
+    await expect(inputField).toHaveValue("Avengers");
+  });
+
+  it("should change genre to 'Comedy'", async () => {
+    await browser.url("/?filter=Comedy");
+
+    const movieTileImage = await $("img.movie-tile__image");
+    const searchResults = await $("div.layout__main__results");
+    const comedyGenreButton = await $$("input.genre-select__button")[2];
+
+    await expect(movieTileImage).toBeDisplayed();
+    await expect(searchResults).toHaveTextContaining("10");
+    await expect(comedyGenreButton).toBeChecked();
+  });
+
+  it("should search movie in 'Documentary' genre and sort by 'Release date'", async () => {
+    await browser.url("/?search=Pandas&filter=Documentary&sortBy=release_date");
+
+    const movieTileImage = await $("img.movie-tile__image");
+    const searchResults = await $("div.layout__main__results");
+    const documentaryGenreButton = await $$("input.genre-select__button")[1];
+    const inputField = await $("input.search-form__input");
+
+    await expect(movieTileImage).toBeDisplayed();
+    await expect(searchResults).toHaveTextContaining("1");
+    await expect(documentaryGenreButton).toBeChecked();
+    await expect(inputField).toHaveValue("Pandas");
+  });
+
+  it("should display Error page if URL is invalid", async () => {
+    await browser.url("/wrong");
+
+    const errorTitle = await $("h1.error-page__title");
+    const errorText = await $("p.error-page__text");
+
+    await expect(errorTitle).toBeDisplayed();
+    await expect(errorText).toBeDisplayed();
   });
 });

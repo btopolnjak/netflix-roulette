@@ -12,6 +12,8 @@ function MovieDetails({ movieInfo }: MovieDetailsProps) {
   const rating = voteAverage.toFixed(1);
   const duration = `${Math.floor(runtime / 60)}h ${runtime % 60}min`;
 
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
   return (
     <>
       <div className="movie-details">
