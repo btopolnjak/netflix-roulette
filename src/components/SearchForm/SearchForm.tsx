@@ -1,9 +1,13 @@
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { SearchFormProps } from "./SearchForm.types";
 import "./SearchForm.scss";
 
-function SearchForm({ initialSearchValue, onSearch }: SearchFormProps) {
+function SearchForm({ initialSearchValue, onSearch, controller }: SearchFormProps) {
   const [inputField, setInputField] = useState(initialSearchValue);
+
+  // This doesn't work somehow. If I place controller.abort() inside of handleSearch
+  // then I can see it works when Search button is clicked.
+  useEffect(() => () => controller.abort(), []);
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

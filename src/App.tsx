@@ -17,8 +17,13 @@ function App() {
   const [movieInfo, setMovieInfo] = useState<MovieInfo | null>(null);
   const [showDialog, setShowDialog] = useState<DialogState | null>(null);
 
+  const controller = new AbortController();
+  const { signal } = controller;
+
   useEffect(() => {
-    getMovies({ currentSearch, currentGenre, currentSort }).then(setMovieList).catch(console.log);
+    getMovies({ currentSearch, currentGenre, currentSort, signal })
+      .then(setMovieList)
+      .catch(console.log);
   }, [currentSearch, currentGenre, currentSort]);
 
   const onPosterClick = (id: number) => {
@@ -65,6 +70,7 @@ function App() {
           onSearch={onSearch}
           initialSearchValue={INITIAL_SEARCH_VALUE}
           movieInfo={movieInfo}
+          controller={controller}
         />
         <Main
           onGenreSelect={onGenreSelect}

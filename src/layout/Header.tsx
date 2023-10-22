@@ -4,16 +4,21 @@ import {
   SearchButton,
   SearchButtonProps,
   MovieDetails,
+  MovieDetailsProps,
   Logo,
 } from "../components";
 
-import { MovieInfo } from "../types";
-
 import "../styles/layout.scss";
 
-type HeaderProps = SearchFormProps & SearchButtonProps & { movieInfo: MovieInfo | null };
+type HeaderProps = SearchFormProps & SearchButtonProps & MovieDetailsProps;
 
-function Header({ onSearchClick, onSearch, initialSearchValue, movieInfo }: HeaderProps) {
+function Header({
+  onSearchClick,
+  onSearch,
+  initialSearchValue,
+  movieInfo,
+  controller,
+}: HeaderProps) {
   return (
     <div className={movieInfo ? "layout__header" : "layout__header__bg"}>
       <div className="layout__header__top-bar">
@@ -24,7 +29,11 @@ function Header({ onSearchClick, onSearch, initialSearchValue, movieInfo }: Head
       {movieInfo ? (
         <MovieDetails movieInfo={movieInfo} />
       ) : (
-        <SearchForm onSearch={onSearch} initialSearchValue={initialSearchValue} />
+        <SearchForm
+          onSearch={onSearch}
+          initialSearchValue={initialSearchValue}
+          controller={controller}
+        />
       )}
     </div>
   );
