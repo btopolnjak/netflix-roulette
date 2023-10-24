@@ -14,7 +14,6 @@ describe("Search Form component", () => {
   let inputField: HTMLInputElement;
   let submitButton: HTMLButtonElement;
   let initialSearchValue = "Example movie";
-  let onSearch = jest.fn();
 
   afterEach(cleanup);
 
