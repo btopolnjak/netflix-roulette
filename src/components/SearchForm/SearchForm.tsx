@@ -18,7 +18,7 @@ function SearchForm() {
         type="text"
         name="search"
         placeholder="What do you want to watch?"
-        value={currentSearch}
+        defaultValue={currentSearch}
         autoComplete="off"
         className="search-form__input"
       />
