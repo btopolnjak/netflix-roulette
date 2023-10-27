@@ -2,6 +2,10 @@
 @use "mixins";
 
 .layout {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: min-content auto 5rem;
+
   &__header {
     display: grid;
     grid-template-rows: 6rem 1fr;
@@ -12,6 +16,7 @@
       border-radius: 0.25rem;
       padding: 1rem 2rem;
       text-transform: uppercase;
+      text-decoration: none;
       font-family: "Montserrat", sans-serif;
       font-size: 1.25rem;
       line-height: 1.524rem;

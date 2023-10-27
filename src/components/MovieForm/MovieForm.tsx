@@ -1,33 +1,45 @@
-import { FormEvent } from "react";
+import Select from "react-select";
+import { useNavigate } from "react-router-dom";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { handleMovie, getCurrentDate } from "../../utilities";
+import { style } from "../../styles/multiselect";
+import { MOVIE_GENRES, ONE_SCREEN_BACK } from "../../constants";
+import { FormData } from "../../types";
 import { MovieFormProps } from "./MovieForm.types";
-import { getCurrentDate } from "../../utilities";
 import "./MovieForm.scss";
 
-function MovieForm({ dialogMovieInfo, onSubmit }: MovieFormProps) {
-  const { title, releaseDate, posterPath, voteAverage, genres, runtime, overview } =
-    dialogMovieInfo ?? {};
-  const currentDate = getCurrentDate();
+function MovieForm({ movieInfo }: MovieFormProps) {
+  const { genres } = movieInfo ?? {};
+  const defaultGenresMultiselect = MOVIE_GENRES.slice(1).map((e) => ({ value: e, label: e }));
+  const selectedGenresMultiselect = genres && genres.map((e) => ({ value: e, label: e }));
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSubmit();
+  const currentDate = getCurrentDate();
+  const navigate = useNavigate();
+
+  const { register, handleSubmit, reset, control } = useForm<FormData>({
+    defaultValues: { ...movieInfo, genres: selectedGenresMultiselect },
+  });
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    const movieGenres = data.genres.map((e) => e.value);
+    const movieData = { ...movieInfo, ...data, genres: movieGenres };
+    handleMovie(movieData);
+    navigate(ONE_SCREEN_BACK);
   };
 
   return (
     <div className="movie-form">
-      <form className="movie-form__grid" id="movie-form" onSubmit={handleSubmit}>
+      <form className="movie-form__grid" id="movie-form" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label className="movie-form__label" htmlFor="title">
             Title
           </label>
           <input
+            {...register("title")}
             className="movie-form__input"
-            defaultValue={title}
             type="text"
-            name="title"
             id="title"
             placeholder="Movie title"
-            required
           />
         </div>
 
@@ -36,10 +48,9 @@ function MovieForm({ dialogMovieInfo, onSubmit }: MovieFormProps) {
             Release date
           </label>
           <input
+            {...register("releaseDate")}
             className="movie-form__input"
-            defaultValue={releaseDate}
             type="date"
-            name="releaseDate"
             id="releaseDate"
             max={currentDate}
           />
@@ -50,25 +61,23 @@ function MovieForm({ dialogMovieInfo, onSubmit }: MovieFormProps) {
             Movie url
           </label>
           <input
+            {...register("posterPath")}
             className="movie-form__input"
-            defaultValue={posterPath}
             type="url"
-            name="movieUrl"
             id="movieUrl"
             placeholder="https://"
           />
         </div>
 
         <div>
-          <label className="movie-form__label" htmlFor="rating">
+          <label className="movie-form__label" htmlFor="voteAverage">
             Rating
           </label>
           <input
+            {...register("voteAverage")}
             className="movie-form__input"
-            defaultValue={voteAverage}
             type="number"
-            name="rating"
-            id="rating"
+            id="voteAverage"
             min="1"
             max="10"
             step=".1"
@@ -80,12 +89,19 @@ function MovieForm({ dialogMovieInfo, onSubmit }: MovieFormProps) {
           <label className="movie-form__label" htmlFor="genre">
             Genre
           </label>
-          <input
-            className="movie-form__input"
-            defaultValue={genres}
-            type="text"
-            name="genre"
-            id="genre"
+          <Controller
+            name="genres"
+            control={control}
+            defaultValue={selectedGenresMultiselect}
+            render={({ field }) => (
+              <Select
+                {...field}
+                isMulti
+                options={defaultGenresMultiselect}
+                styles={style}
+                required
+              />
+            )}
           />
         </div>
 
@@ -94,12 +110,10 @@ function MovieForm({ dialogMovieInfo, onSubmit }: MovieFormProps) {
             Runtime
           </label>
           <input
+            {...register("runtime", { min: 1 })}
             className="movie-form__input"
-            defaultValue={runtime}
             type="number"
-            name="runtime"
             id="runtime"
-            min="1"
             placeholder="minutes"
             required
           />
@@ -110,17 +124,21 @@ function MovieForm({ dialogMovieInfo, onSubmit }: MovieFormProps) {
             Overview
           </label>
           <textarea
+            {...register("overview")}
             className="movie-form__overview-input"
-            defaultValue={overview}
-            name="overview"
             id="overview"
             placeholder="Movie description"
           />
         </div>
 
         <div className="movie-form__buttons">
-          <input className="movie-form__reset-button" id="reset" type="reset" value="Reset" />
-
+          <input
+            className="movie-form__reset-button"
+            id="reset"
+            type="reset"
+            value="Reset"
+            onClick={() => reset({ genres: [] })}
+          />
           <input className="movie-form__confirm-button" id="submit" type="submit" value="Submit" />
         </div>
       </form>

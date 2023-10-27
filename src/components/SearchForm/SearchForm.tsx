@@ -14,6 +14,7 @@ function SearchForm() {
 
   return (
     <form className="search-form" onSubmit={handleSearch}>
+      <header className="search-form__title">Find your movie</header>
       <input
         type="text"
         name="search"

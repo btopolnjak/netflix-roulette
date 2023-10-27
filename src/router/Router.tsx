@@ -1,24 +1,43 @@
-import { createBrowserRouter } from "react-router-dom";
-
 import App from "../App";
-import { ErrorPage } from "../components";
+import { createBrowserRouter } from "react-router-dom";
+import { ErrorPage, Dialog } from "../components";
 import { MovieDetailsHeader, SearchFormHeader } from "../layout";
-import { MovieDetailsLoader } from "../loaders";
+import { MovieDetailsLoader, AddMovieLoader, EditMovieLoader, DeleteMovieLoader } from "../loaders";
+import { HOME, NEW, EDIT, DELETE, MOVIE_ID } from "../constants";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: HOME,
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        path: HOME,
         element: <SearchFormHeader />,
+        children: [
+          {
+            path: NEW,
+            element: <Dialog />,
+            loader: AddMovieLoader,
+          },
+        ],
       },
       {
-        path: ":movieId",
+        path: MOVIE_ID,
         element: <MovieDetailsHeader />,
         loader: MovieDetailsLoader,
+        children: [
+          {
+            path: EDIT,
+            element: <Dialog />,
+            loader: EditMovieLoader,
+          },
+          {
+            path: DELETE,
+            element: <Dialog />,
+            loader: DeleteMovieLoader,
+          },
+        ],
       },
     ],
   },

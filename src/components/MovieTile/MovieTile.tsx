@@ -4,27 +4,20 @@ import { getReleaseYearFromDate } from "../../utilities";
 import Poster from "../Poster/Poster";
 import "./MovieTile.scss";
 
-function MovieTile({ movieInfo, onDialogOpen }: MovieTileProps) {
+function MovieTile({ movieInfo }: MovieTileProps) {
   const { id, title, releaseDate, posterPath, genres } = movieInfo;
   const releaseYear = getReleaseYearFromDate(releaseDate);
   const genresList = genres.join(", ");
 
-  const handleEditClick = () => {
-    onDialogOpen("editMovie", id);
-  };
-  const handleDeleteClick = () => {
-    onDialogOpen("deleteMovie", id);
-  };
-
   return (
     <div className="movie-tile">
       <div className="movie-tile__button-menu">
-        <button className="movie-tile__button" onClick={handleDeleteClick}>
+        <Link to={`/${id}/delete`} className="movie-tile__button">
           Delete
-        </button>
-        <button className="movie-tile__button" onClick={handleEditClick}>
+        </Link>
+        <Link to={`/${id}/edit`} className="movie-tile__button">
           Edit
-        </button>
+        </Link>
       </div>
       <Link to={`/${id}`} className="movie-tile__link">
         <Poster className="movie-tile__image" posterPath={posterPath} />

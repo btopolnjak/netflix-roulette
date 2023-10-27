@@ -1,0 +1,31 @@
+@use "../../styles/colors";
+@use "../../styles/mixins.scss";
+
+.delete-movie {
+  display: flex;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+
+  &__text {
+    color: colors.$white;
+    font-weight: 400;
+    font-size: 1.25rem;
+  }
+
+  &__confirm-button {
+    border: none;
+    margin-top: 3rem;
+    border-radius: 0.25rem;
+    padding: 1rem 4rem;
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.524rem;
+    cursor: pointer;
+    background-color: colors.$red;
+    color: colors.$white;
+    align-self: self-end;
+    max-width: min-content;
+    justify-self: end;
+  }
+}

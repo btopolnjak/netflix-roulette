@@ -13,13 +13,11 @@ type MainProps = GenreSelectProps &
   Omit<MovieTileProps, "movieInfo"> &
   SortControlProps & {
     movieList: MovieInfo[];
-    onDialogOpen: (name: string, id: number | null) => void;
   };
 
 function Main({
   onGenreSelect,
   onSortChange,
-  onDialogOpen,
   defaultSelectedGenre,
   movieList,
   currentSort,
@@ -36,7 +34,7 @@ function Main({
       </div>
       <div className="layout__main__tiles">
         {movieList.map((movie) => {
-          return <MovieTile key={movie.id} movieInfo={movie} onDialogOpen={onDialogOpen} />;
+          return <MovieTile key={movie.id} movieInfo={movie} />;
         })}
       </div>
     </div>

@@ -135,3 +135,50 @@ describe("react-router-dom e2e test", () => {
     await expect(errorText).toBeDisplayed();
   });
 });
+
+describe("adding and updating movie e2e test", () => {
+  it("should render app with 10 movies", async () => {
+    await browser.url("/");
+
+    const movieTileImage = await $("img.movie-tile__image");
+    const searchResults = await $("div.layout__main__results");
+
+    await expect(movieTileImage).toBeDisplayed();
+    await expect(searchResults).toHaveTextContaining("10");
+  });
+
+  it("should submit new 'Test movie'", async () => {
+    await browser.url("/new");
+
+    const title = await $('input[name="title"]');
+    const releaseDate = await $('input[name="releaseDate"]');
+    const posterPath = await $('input[name="posterPath"]');
+    const voteAverage = await $('input[name="voteAverage"]');
+    const genresSelect = await $(".css-tj5bde-Svg");
+    const runtime = await $('input[name="runtime"]');
+    const overview = await $('textarea[name="overview"]');
+    const submitButton = await $("input#submit");
+
+    await title.addValue("Test movie");
+    await releaseDate.addValue("20-02-2022");
+    await posterPath.addValue("https://testurl.com");
+    await voteAverage.addValue("5");
+    await runtime.addValue("150");
+    await overview.addValue("Example movie description");
+    await genresSelect.click();
+    const comedyGenre = await $("div#react-select-3-option-1.css-1wqzxin-option");
+    await comedyGenre.click();
+
+    await submitButton.click();
+  });
+
+  it("should verify new 'Test movie' exists", async () => {
+    await browser.url("/?search=Test+movie");
+
+    const movieTileImage = await $("img.movie-tile__image");
+    const searchResults = await $("div.layout__main__results");
+
+    await expect(movieTileImage).toBeDisplayed();
+    await expect(searchResults).not.toHaveTextContaining("0");
+  });
+});
