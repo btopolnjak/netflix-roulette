@@ -1,8 +1,8 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import { MovieInfo } from "./MovieInfo.types";
 
-export type DialogLoader<T> = {
-  Component: FunctionComponent<T | {}>;
+export type DialogLoader = {
+  Component: FC<{ movieInfo: MovieInfo }>;
   dialogTitle: string;
   movieInfo: MovieInfo;
 };

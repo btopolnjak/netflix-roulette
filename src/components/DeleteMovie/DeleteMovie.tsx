@@ -6,7 +6,7 @@ import { deleteMovie } from "../../utilities";
 import "./DeleteMovie.scss";
 
 function DeleteMovie() {
-  const { movieInfo } = useLoaderData() as any;
+  const { movieInfo } = useLoaderData() as DialogLoader;
   const navigate = useNavigate();
 
   console.log(movieInfo);

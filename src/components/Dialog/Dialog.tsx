@@ -1,12 +1,12 @@
 import ReactDOM from "react-dom";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { ONE_SCREEN_BACK } from "../../constants";
-import { DialogLoader, MovieInfo } from "../../types";
+import { DialogLoader } from "../../types";
 import "./Dialog.scss";
 
 function Dialog() {
   const navigate = useNavigate();
-  const { Component, dialogTitle, movieInfo } = useLoaderData() as any;
+  const { Component, dialogTitle, movieInfo } = useLoaderData() as DialogLoader;
 
   return ReactDOM.createPortal(
     <div className="dialog">
