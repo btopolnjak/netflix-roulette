@@ -1,11 +1,12 @@
 import { render, cleanup, screen } from "@testing-library/react";
 import SortControl from "./SortControl";
+import { SORT_OPTIONS } from "../../constants";
 import userEvent from "@testing-library/user-event";
 
 describe("Sort Control component", () => {
   const SortControlProps = {
     onSortChange: jest.fn(),
-    currentSort: "Title",
+    currentSort: SORT_OPTIONS[0],
   };
 
   afterEach(cleanup);

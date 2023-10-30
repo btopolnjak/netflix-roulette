@@ -1,4 +1,4 @@
 export type SortControlProps = {
   onSortChange: (condition: string) => void;
-  currentSort: string;
+  currentSort: { label: string; query: string };
 };

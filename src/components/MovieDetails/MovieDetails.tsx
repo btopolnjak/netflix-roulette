@@ -1,9 +1,10 @@
 import { MovieDetailsProps } from "./MovieDetails.types";
-import { Poster } from "..";
 import { getReleaseYearFromDate } from "../../utilities";
+import Poster from "../Poster/Poster";
 import "./MovieDetails.scss";
 
 function MovieDetails({ movieInfo }: MovieDetailsProps) {
+  if (!movieInfo) return;
   const { title, voteAverage, genres, releaseDate, runtime, posterPath, overview } = movieInfo;
 
   const releaseYear = getReleaseYearFromDate(releaseDate);

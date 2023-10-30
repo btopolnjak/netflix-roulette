@@ -2,29 +2,33 @@ import { useEffect, useState } from "react";
 import { getMovies, getDialogType, getDialogTitle } from "./utilities";
 import { Header, Main, Footer } from "./layout";
 import { Dialog } from "./components";
-import { MOVIE_GENRES, SORT_OPTIONS } from "./constants";
-import { MovieInfo, MovieList, DialogState } from "./types";
+import { MOVIE_GENRES, SORT_OPTIONS, APP_CONSTANTS } from "./constants";
+import { MovieInfo, DialogState, SortControl } from "./types";
 import "./styles/index.scss";
 
 function App() {
-  const initialSearchValue = "Example movie title";
-  const defaultSelectedGenre = MOVIE_GENRES[0];
+  const { INITIAL_SEARCH_VALUE, DEFAULT_GENRE, DEFAULT_SORT_OPTION } = APP_CONSTANTS;
 
-  const [currentSort, setCurrentSort] = useState<string>(SORT_OPTIONS[0]);
-  const [movieList, setMovieList] = useState<MovieList | []>([]);
-  const [movieInfo, setMovieInfo] = useState<MovieInfo | undefined>(undefined);
+  const [currentSort, setCurrentSort] = useState<SortControl>(SORT_OPTIONS[DEFAULT_SORT_OPTION]);
+  const [currentGenre, setCurrentGenre] = useState(MOVIE_GENRES[DEFAULT_GENRE]);
+  const [currentSearch, setCurrentSearch] = useState(INITIAL_SEARCH_VALUE);
+
+  const [movieList, setMovieList] = useState<MovieInfo[] | []>([]);
+  const [movieInfo, setMovieInfo] = useState<MovieInfo | null>(null);
   const [showDialog, setShowDialog] = useState<DialogState | null>(null);
 
+  const controller = new AbortController();
+  const { signal } = controller;
+
   useEffect(() => {
-    (async () => {
-      const movies = await getMovies("sampleURL");
-      setMovieList(movies);
-    })();
-  }, []);
+    getMovies({ currentSearch, currentGenre, currentSort, signal })
+      .then(setMovieList)
+      .catch(console.log);
+  }, [currentSearch, currentGenre, currentSort]);
 
   const onPosterClick = (id: number) => {
     const selectedMovie = movieList.find((movie) => movie.id === id);
-    setMovieInfo(selectedMovie);
+    selectedMovie && setMovieInfo(selectedMovie);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -36,11 +40,21 @@ function App() {
     });
   };
 
+  const onSearch = (movie: string) => {
+    setCurrentSearch(movie);
+  };
+
+  const onGenreSelect = (genre: string) => {
+    setCurrentGenre(genre);
+  };
+
+  const onSortChange = (sort: string) => {
+    const updatedSort = SORT_OPTIONS.find((option) => option.query === sort);
+    updatedSort && setCurrentSort(updatedSort);
+  };
+
   const onSubmit = () => setShowDialog(null);
-  const onSearch = (movie: string) => alert(`You searched for "${movie}"`);
-  const onGenreSelect = (genre: string) => alert(`You have choosen "${genre}" category`);
-  const onSortChange = (conditon: string) => setCurrentSort(conditon);
-  const onSearchClick = () => setMovieInfo(undefined);
+  const onSearchClick = () => setMovieInfo(null);
   const onDialogClose = () => setShowDialog(null);
 
   return (
@@ -54,15 +68,16 @@ function App() {
         <Header
           onSearchClick={onSearchClick}
           onSearch={onSearch}
-          initialSearchValue={initialSearchValue}
+          initialSearchValue={INITIAL_SEARCH_VALUE}
           movieInfo={movieInfo}
+          controller={controller}
         />
         <Main
           onGenreSelect={onGenreSelect}
           onPosterClick={onPosterClick}
           onSortChange={onSortChange}
           onDialogOpen={onDialogOpen}
-          defaultSelectedGenre={defaultSelectedGenre}
+          defaultSelectedGenre={MOVIE_GENRES[DEFAULT_GENRE]}
           movieGenres={MOVIE_GENRES}
           movieList={movieList}
           currentSort={currentSort}

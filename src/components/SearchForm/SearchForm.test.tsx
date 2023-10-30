@@ -7,9 +7,12 @@ describe("Search Form component", () => {
   let inputField: HTMLInputElement;
   let submitButton: HTMLButtonElement;
   let userTyping = " My Movie Title";
+  const controller = new AbortController();
+
   const SearchFormProps = {
     initialSearchValue: "Example movie title",
     onSearch: jest.fn(),
+    controller,
   };
 
   afterEach(cleanup);
