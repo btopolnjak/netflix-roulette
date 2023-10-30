@@ -1,28 +1,35 @@
 import { render, cleanup, screen, fireEvent } from "@testing-library/react";
-import GenreSelect from "./GenreSelect";
+import { BrowserRouter } from "react-router-dom";
 import { MOVIE_GENRES } from "../../constants/genres";
+import GenreSelect from "./GenreSelect";
 
 describe("Genre Select component", () => {
   let renderedGenres: HTMLInputElement[];
   const GenreSelectProps = {
     defaultSelectedGenre: MOVIE_GENRES[0],
-    movieGenres: MOVIE_GENRES,
     onGenreSelect: jest.fn(),
   };
 
   afterEach(cleanup);
 
   it("should render all genres passed in props", () => {
-    render(<GenreSelect {...GenreSelectProps} />);
+    render(
+      <BrowserRouter>
+        <GenreSelect {...GenreSelectProps} />
+      </BrowserRouter>
+    );
 
-    const { movieGenres } = GenreSelectProps;
     renderedGenres = screen.getAllByRole("radio");
 
-    expect(renderedGenres.length).toBe(movieGenres.length);
+    expect(renderedGenres.length).toBe(MOVIE_GENRES.length);
   });
 
   it("should highlight a selected genre passed in props", () => {
-    render(<GenreSelect {...GenreSelectProps} />);
+    render(
+      <BrowserRouter>
+        <GenreSelect {...GenreSelectProps} />
+      </BrowserRouter>
+    );
 
     const { defaultSelectedGenre } = GenreSelectProps;
     const highlightedGenre = screen.getAllByRole("radio", {
@@ -33,7 +40,11 @@ describe("Genre Select component", () => {
   });
 
   it("should call 'onChange' and pass correct genre in arguments after a click event on a genre button", () => {
-    render(<GenreSelect {...GenreSelectProps} />);
+    render(
+      <BrowserRouter>
+        <GenreSelect {...GenreSelectProps} />
+      </BrowserRouter>
+    );
 
     const { onGenreSelect } = GenreSelectProps;
     renderedGenres = screen.getAllByRole("radio");

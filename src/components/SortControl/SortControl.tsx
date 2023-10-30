@@ -16,7 +16,7 @@ function SortControl({ currentSort, onSortChange }: SortControlProps) {
         className="sort-control__select"
         name="sort"
         onChange={handleChange}
-        defaultValue={currentSort.label}
+        defaultValue={currentSort}
       >
         {SORT_OPTIONS.map((option) => {
           return (

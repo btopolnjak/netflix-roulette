@@ -1,23 +1,22 @@
-import { Poster } from "..";
+import { Link, useLocation } from "react-router-dom";
 import { MovieTileProps } from "./MovieTile.types";
 import { getReleaseYearFromDate } from "../../utilities";
+import Poster from "../Poster/Poster";
 import "./MovieTile.scss";
 
-function MovieTile({ movieInfo, onPosterClick, onDialogOpen }: MovieTileProps) {
+function MovieTile({ movieInfo, onDialogOpen }: MovieTileProps) {
   const { id, title, releaseDate, posterPath, genres } = movieInfo;
+  const { search } = useLocation();
   const releaseYear = getReleaseYearFromDate(releaseDate);
   const genresList = genres.join(", ");
 
-  const handlePosterClick = () => {
-    onPosterClick(id);
-  };
   const handleEditClick = () => {
     onDialogOpen("editMovie", id);
   };
   const handleDeleteClick = () => {
     onDialogOpen("deleteMovie", id);
   };
-
+  console.log(search);
   return (
     <div className="movie-tile">
       <div className="movie-tile__button-menu">
@@ -28,11 +27,9 @@ function MovieTile({ movieInfo, onPosterClick, onDialogOpen }: MovieTileProps) {
           Edit
         </button>
       </div>
-      <Poster
-        className="movie-tile__image"
-        posterPath={posterPath}
-        onPosterClick={handlePosterClick}
-      />
+      <Link to={`/${id}${search}`} className="movie-tile__link">
+        <Poster className="movie-tile__image" posterPath={posterPath} />
+      </Link>
       <div className="movie-tile__name">{title}</div>
       <div className="movie-tile__year">{releaseYear}</div>
       <div className="movie-tile__genre">{genresList}</div>

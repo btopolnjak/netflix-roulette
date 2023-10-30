@@ -1,36 +1,26 @@
 import { useEffect, useState } from "react";
+import { Outlet, useSearchParams } from "react-router-dom";
 import { getMovies, getDialogType, getDialogTitle } from "./utilities";
-import { Header, Main, Footer } from "./layout";
+import { Main, Footer } from "./layout";
 import { Dialog } from "./components";
 import { MOVIE_GENRES, SORT_OPTIONS, APP_CONSTANTS } from "./constants";
-import { MovieInfo, DialogState, SortControl } from "./types";
+import { MovieInfo, DialogState } from "./types";
 import "./styles/index.scss";
 
 function App() {
   const { INITIAL_SEARCH_VALUE, DEFAULT_GENRE, DEFAULT_SORT_OPTION } = APP_CONSTANTS;
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const [currentSort, setCurrentSort] = useState<SortControl>(SORT_OPTIONS[DEFAULT_SORT_OPTION]);
-  const [currentGenre, setCurrentGenre] = useState(MOVIE_GENRES[DEFAULT_GENRE]);
-  const [currentSearch, setCurrentSearch] = useState(INITIAL_SEARCH_VALUE);
+  const currentSort = searchParams.get("sortBy") || SORT_OPTIONS[DEFAULT_SORT_OPTION].query;
+  const currentGenre = searchParams.get("filter") || MOVIE_GENRES[DEFAULT_GENRE];
+  const currentSearch = searchParams.get("search") || INITIAL_SEARCH_VALUE;
 
   const [movieList, setMovieList] = useState<MovieInfo[] | []>([]);
-  const [movieInfo, setMovieInfo] = useState<MovieInfo | null>(null);
   const [showDialog, setShowDialog] = useState<DialogState | null>(null);
 
-  const controller = new AbortController();
-  const { signal } = controller;
-
   useEffect(() => {
-    getMovies({ currentSearch, currentGenre, currentSort, signal })
-      .then(setMovieList)
-      .catch(console.log);
+    getMovies({ currentSearch, currentGenre, currentSort }).then(setMovieList).catch(console.log);
   }, [currentSearch, currentGenre, currentSort]);
-
-  const onPosterClick = (id: number) => {
-    const selectedMovie = movieList.find((movie) => movie.id === id);
-    selectedMovie && setMovieInfo(selectedMovie);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   const onDialogOpen = (name: string, id: number | null) => {
     setShowDialog({
@@ -41,20 +31,29 @@ function App() {
   };
 
   const onSearch = (movie: string) => {
-    setCurrentSearch(movie);
+    setSearchParams((searchParams) => {
+      searchParams.set("search", movie);
+      return searchParams;
+    });
   };
 
   const onGenreSelect = (genre: string) => {
-    setCurrentGenre(genre);
+    setSearchParams((searchParams) => {
+      searchParams.set("filter", genre);
+      return searchParams;
+    });
   };
 
   const onSortChange = (sort: string) => {
     const updatedSort = SORT_OPTIONS.find((option) => option.query === sort);
-    updatedSort && setCurrentSort(updatedSort);
+    updatedSort &&
+      setSearchParams((searchParams) => {
+        searchParams.set("sortBy", sort);
+        return searchParams;
+      });
   };
 
   const onSubmit = () => setShowDialog(null);
-  const onSearchClick = () => setMovieInfo(null);
   const onDialogClose = () => setShowDialog(null);
 
   return (
@@ -65,20 +64,12 @@ function App() {
         </Dialog>
       )}
       <div className="layout">
-        <Header
-          onSearchClick={onSearchClick}
-          onSearch={onSearch}
-          initialSearchValue={INITIAL_SEARCH_VALUE}
-          movieInfo={movieInfo}
-          controller={controller}
-        />
+        <Outlet context={{ onDialogOpen, onSearch, currentSearch }} />
         <Main
           onGenreSelect={onGenreSelect}
-          onPosterClick={onPosterClick}
           onSortChange={onSortChange}
           onDialogOpen={onDialogOpen}
           defaultSelectedGenre={MOVIE_GENRES[DEFAULT_GENRE]}
-          movieGenres={MOVIE_GENRES}
           movieList={movieList}
           currentSort={currentSort}
         />
