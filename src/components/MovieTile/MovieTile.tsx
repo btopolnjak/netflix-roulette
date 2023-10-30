@@ -13,10 +13,10 @@ function MovieTile({ movieInfo }: MovieTileProps) {
   return (
     <div className="movie-tile">
       <div className="movie-tile__button-menu">
-        <Link to={`/${id}/delete`} className="movie-tile__button">
+        <Link to={`/${id}/delete${search}`} className="movie-tile__button">
           Delete
         </Link>
-        <Link to={`/${id}/edit`} className="movie-tile__button">
+        <Link to={`/${id}/edit${search}`} className="movie-tile__button">
           Edit
         </Link>
       </div>
