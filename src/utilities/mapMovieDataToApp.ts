@@ -7,9 +7,6 @@ export default function mapMovieDataToApp(data: any | any[]) {
     return movie;
   };
 
-  if (Array.isArray(data)) {
-    return data.map(mapFunction);
-  } else {
-    return mapFunction(data);
-  }
+  if (Array.isArray(data)) data.map(mapFunction);
+  return mapFunction(data);
 }

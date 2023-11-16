@@ -5,7 +5,7 @@ export default function mapMovieDataToApi(movie: any | any[]) {
   delete Object.assign(movie, { poster_path: movie.posterPath })["posterPath"];
 
   if (typeof movie.vote_average !== "number") movie.vote_average = parseFloat(movie.vote_average);
-  if (typeof movie.runtime !== "number") movie.runtime = parseInt(movie.runtime);
+  if (typeof movie.runtime !== "number") movie.runtime = parseInt(movie.runtime, 10);
 
   return movie;
 }

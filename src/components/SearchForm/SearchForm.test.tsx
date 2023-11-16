@@ -13,7 +13,7 @@ jest.mock("react-router-dom", () => ({
 describe("Search Form component", () => {
   let inputField: HTMLInputElement;
   let submitButton: HTMLButtonElement;
-  let initialSearchValue = "Example movie";
+  const initialSearchValue = "Example movie";
 
   afterEach(cleanup);
 

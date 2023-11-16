@@ -1,5 +1,6 @@
 class Logger {
   private logs: any[];
+
   private static instance: Logger | null;
 
   private constructor() {

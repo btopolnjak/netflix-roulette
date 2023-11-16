@@ -26,5 +26,5 @@ export async function handleMovie(movie: MovieInfo) {
 }
 
 export async function deleteMovie(id: number) {
-  await fetch(BASE_URL + "/" + id, { method: "DELETE" });
+  await fetch(`${BASE_URL}/${id}`, { method: "DELETE" });
 }

@@ -33,9 +33,9 @@ function Main({
         <span>&nbsp;movies found</span>
       </div>
       <div className="layout__main__tiles">
-        {movieList.map((movie) => {
-          return <MovieTile key={movie.id} movieInfo={movie} />;
-        })}
+        {movieList.map((movie) => (
+          <MovieTile key={movie.id} movieInfo={movie} />
+        ))}
       </div>
     </div>
   );

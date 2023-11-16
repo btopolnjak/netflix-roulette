@@ -15,7 +15,7 @@ export default async function getMovies({ currentSearch, currentGenre, currentSo
     ...(filter && { filter }),
   });
 
-  const response = await fetch(BASE_URL + "?" + searchParams);
+  const response = await fetch(`${BASE_URL}?${searchParams}`);
   const fetchData = await response.json();
   return mapMovieDataToApp(fetchData.data);
 }
