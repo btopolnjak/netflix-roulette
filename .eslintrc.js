@@ -25,6 +25,7 @@ module.exports = {
     "import/order": "off",
     "import/no-cycle": "off",
     "no-param-reassign": "off",
+    "operator-linebreak": "off",
     "object-curly-newline": "off",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
@@ -34,6 +35,7 @@ module.exports = {
     "@typescript-eslint/dot-notation": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
   },
   settings: {
     react: {
