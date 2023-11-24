@@ -16,7 +16,7 @@ const config: any = {
       },
       {
         test: /\.svg$/,
-        loader: "svg-inline-loader",
+        loader: "svg-url-loader",
       },
     ],
   },
@@ -29,6 +29,7 @@ const config: any = {
   },
   devServer: {
     static: "./dist",
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

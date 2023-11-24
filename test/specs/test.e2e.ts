@@ -43,6 +43,7 @@ describe("application e2e test", () => {
   });
 
   it("should sort movies by title in ascending order", async () => {
+    await browser.url("/");
     const sortMenu = await $("select.sort-control__select");
 
     const firstMovieBefore = await $$("div.movie-tile__name")[0];
@@ -55,6 +56,7 @@ describe("application e2e test", () => {
   });
 
   it("should change sorting genre to 'Documentary'", async () => {
+    await browser.url("/");
     const genreSortMenu = await $$("div.genre-select__text");
 
     await genreSortMenu[1].click();
