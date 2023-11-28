@@ -7,10 +7,6 @@ export default {
   component: SearchButton,
 };
 
-const Template: StoryFn<typeof SearchButton> = (args) => <SearchButton {...args} />;
+const Template: StoryFn<typeof SearchButton> = () => <SearchButton />;
 
 export const SearchButtonComponent = Template.bind({});
-
-SearchButtonComponent.args = {
-  onSearchClick: () => {},
-};
