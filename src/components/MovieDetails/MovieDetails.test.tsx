@@ -1,6 +1,14 @@
 import { render, cleanup, screen } from "@testing-library/react";
 import MovieDetails from "./MovieDetails";
 
+const mockedUsedNavigate = jest.fn();
+const scrollToMock = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  ...(jest.requireActual("react-router-dom") as any),
+  useNavigate: () => mockedUsedNavigate,
+}));
+
 describe("Movie Details component", () => {
   const MovieDetailsProps = {
     movieInfo: {
@@ -23,6 +31,7 @@ describe("Movie Details component", () => {
   afterEach(cleanup);
 
   it("should render the component with the default values", () => {
+    jest.spyOn(window, "scrollTo").mockImplementation(scrollToMock);
     render(<MovieDetails {...MovieDetailsProps} />);
 
     const poster = screen.getByRole("img");

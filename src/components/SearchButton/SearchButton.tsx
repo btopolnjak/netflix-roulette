@@ -1,15 +1,8 @@
-import { MouseEvent } from "react";
-import { SearchButtonProps } from "./SearchButton.types";
 import "./SearchButton.scss";
 
-function SearchButton({ onSearchClick }: SearchButtonProps) {
-  const handleClick = (e: MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    onSearchClick();
-  };
-
+function SearchButton() {
   return (
-    <button className="search-button" onClick={handleClick}>
+    <button className="search-button">
       <svg xmlns="http://www.w3.org/2000/svg" height="38" viewBox="0 96 960 960" width="38">
         <path
           fill="currentColor"

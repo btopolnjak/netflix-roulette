@@ -7,9 +7,6 @@ export default {
   component: SearchForm,
 };
 
-const Template: StoryFn<typeof SearchForm> = (args) => <SearchForm {...args} />;
+const Template: StoryFn<typeof SearchForm> = () => <SearchForm />;
 
 export const SearchFormComponent = Template.bind({});
-
-const initialSearchValue = "Example movie title";
-SearchFormComponent.args = { initialSearchValue };

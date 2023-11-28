@@ -1,19 +1,22 @@
-import { useState, ChangeEvent } from "react";
+import { ChangeEvent } from "react";
+import { useSearchParams } from "react-router-dom";
+import { MOVIE_GENRES } from "../../constants";
 import { GenreSelectProps } from "./GenreSelect.types";
 import "./GenreSelect.scss";
 
-function GenreSelect({ defaultSelectedGenre, movieGenres, onGenreSelect }: GenreSelectProps) {
-  const [selectedGenre, setSelectedGenre] = useState(defaultSelectedGenre);
+function GenreSelect({ defaultSelectedGenre, onGenreSelect }: GenreSelectProps) {
+  const [searchParams] = useSearchParams();
+  const selectedGenre = searchParams.get("filter") || defaultSelectedGenre;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSelectedGenre(e.target.value);
+    e.preventDefault();
     onGenreSelect(e.target.value);
   };
 
   return (
     <div className="genre-select">
       <div className="genre-select__menu">
-        {movieGenres.map((name: any) => {
+        {MOVIE_GENRES.map((name: any) => {
           return (
             <label key={name}>
               <input

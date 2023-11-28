@@ -1,55 +1,62 @@
 import { useEffect, useState } from "react";
+import { Outlet, useSearchParams } from "react-router-dom";
 import { getMovies } from "./utilities";
-import { Header, Main, Footer } from "./layout";
-import { MOVIE_GENRES, SORT_OPTIONS } from "./constants";
-import { MovieInfo, MovieList } from "./types";
+import { Main, Footer } from "./layout";
+import { MOVIE_GENRES, SORT_OPTIONS, APP_CONSTANTS } from "./constants";
+import { MovieInfo } from "./types";
 import "./styles/index.scss";
 
 function App() {
-  const initialSearchValue = "Example movie title";
-  const defaultSelectedGenre = MOVIE_GENRES[0];
+  const { INITIAL_SEARCH_VALUE, DEFAULT_GENRE, DEFAULT_SORT_OPTION } = APP_CONSTANTS;
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const [currentSort, setCurrentSort] = useState<string>(SORT_OPTIONS[0]);
-  const [movieList, setMovieList] = useState<MovieList | []>([]);
-  const [movieInfo, setMovieInfo] = useState<MovieInfo | undefined>(undefined);
+  const currentSort = searchParams.get("sortBy") || SORT_OPTIONS[DEFAULT_SORT_OPTION].query;
+  const currentGenre = searchParams.get("filter") || MOVIE_GENRES[DEFAULT_GENRE];
+  const currentSearch = searchParams.get("search") || INITIAL_SEARCH_VALUE;
+
+  const [movieList, setMovieList] = useState<MovieInfo[] | []>([]);
 
   useEffect(() => {
-    (async () => {
-      const movies = await getMovies("sampleURL");
-      setMovieList(movies);
-    })();
-  }, []);
+    getMovies({ currentSearch, currentGenre, currentSort }).then(setMovieList).catch(console.log);
+  }, [currentSearch, currentGenre, currentSort]);
 
-  const onPosterClick = (id: number) => {
-    const selectedMovie = movieList.find((movie) => movie.id === id);
-    setMovieInfo(selectedMovie);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const onSearch = (movie: string) => {
+    setSearchParams((searchParams) => {
+      searchParams.set("search", movie);
+      return searchParams;
+    });
   };
 
-  const onSearch = (movie: string) => alert(`You searched for "${movie}"`);
-  const onGenreSelect = (genre: string) => alert(`You have choosen "${genre}" category`);
-  const onSortChange = (conditon: string) => setCurrentSort(conditon);
-  const onSearchClick = () => setMovieInfo(undefined);
+  const onGenreSelect = (genre: string) => {
+    setSearchParams((searchParams) => {
+      searchParams.set("filter", genre);
+      return searchParams;
+    });
+  };
+
+  const onSortChange = (sort: string) => {
+    const updatedSort = SORT_OPTIONS.find((option) => option.query === sort);
+    updatedSort &&
+      setSearchParams((searchParams) => {
+        searchParams.set("sortBy", sort);
+        return searchParams;
+      });
+  };
 
   return (
-    <div className="layout">
-      <Header
-        onSearchClick={onSearchClick}
-        onSearch={onSearch}
-        initialSearchValue={initialSearchValue}
-        movieInfo={movieInfo}
-      />
-      <Main
-        onGenreSelect={onGenreSelect}
-        onPosterClick={onPosterClick}
-        onSortChange={onSortChange}
-        defaultSelectedGenre={defaultSelectedGenre}
-        movieGenres={MOVIE_GENRES}
-        movieList={movieList}
-        currentSort={currentSort}
-      />
-      <Footer />
-    </div>
+    <>
+      <div className="layout">
+        <Outlet context={{ onSearch, currentSearch }} />
+        <Main
+          onGenreSelect={onGenreSelect}
+          onSortChange={onSortChange}
+          defaultSelectedGenre={MOVIE_GENRES[DEFAULT_GENRE]}
+          movieList={movieList}
+          currentSort={currentSort}
+        />
+        <Footer />
+      </div>
+    </>
   );
 }
 

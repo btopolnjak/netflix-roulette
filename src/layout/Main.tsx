@@ -6,30 +6,26 @@ import {
   SortControl,
   SortControlProps,
 } from "../components";
-import { MovieList } from "../types";
+import { MovieInfo } from "../types";
 import "../styles/layout.scss";
 
 type MainProps = GenreSelectProps &
   Omit<MovieTileProps, "movieInfo"> &
-  SortControlProps & { movieList: MovieList };
+  SortControlProps & {
+    movieList: MovieInfo[];
+  };
 
 function Main({
   onGenreSelect,
-  onPosterClick,
   onSortChange,
   defaultSelectedGenre,
-  movieGenres,
   movieList,
   currentSort,
 }: MainProps) {
   return (
     <div className="layout__main">
       <div className="layout__main__menu">
-        <GenreSelect
-          defaultSelectedGenre={defaultSelectedGenre}
-          onGenreSelect={onGenreSelect}
-          movieGenres={movieGenres}
-        />
+        <GenreSelect defaultSelectedGenre={defaultSelectedGenre} onGenreSelect={onGenreSelect} />
         <SortControl currentSort={currentSort} onSortChange={onSortChange} />
       </div>
       <div className="layout__main__results">
@@ -37,9 +33,9 @@ function Main({
         <span>&nbsp;movies found</span>
       </div>
       <div className="layout__main__tiles">
-        {movieList.map((movie) => {
-          return <MovieTile key={movie.id} movieInfo={movie} onPosterClick={onPosterClick} />;
-        })}
+        {movieList.map((movie) => (
+          <MovieTile key={movie.id} movieInfo={movie} />
+        ))}
       </div>
     </div>
   );

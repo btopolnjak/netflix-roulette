@@ -20,8 +20,8 @@ function SortControl({ currentSort, onSortChange }: SortControlProps) {
       >
         {SORT_OPTIONS.map((option) => {
           return (
-            <option key={option} value={option}>
-              {option}
+            <option key={option.query} value={option.query}>
+              {option.label}
             </option>
           );
         })}

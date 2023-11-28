@@ -1,6 +1,6 @@
 import { render, cleanup, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import MovieTile from "./MovieTile";
-import userEvent from "@testing-library/user-event";
 
 describe("Movie Tile component", () => {
   const MovieTileProps = {
@@ -19,13 +19,17 @@ describe("Movie Tile component", () => {
       genres: ["Action", "Adventure", "Fantasy", "Science Fiction"],
       runtime: 134,
     },
-    onPosterClick: jest.fn(),
+    onDialogOpen: jest.fn(),
   };
 
   afterEach(cleanup);
 
   it("should render the component with the default values", () => {
-    render(<MovieTile {...MovieTileProps} />);
+    render(
+      <BrowserRouter>
+        <MovieTile {...MovieTileProps} />
+      </BrowserRouter>
+    );
 
     const poster = screen.getByRole("img");
     const title = screen.getByText("Black Panther");
@@ -39,17 +43,5 @@ describe("Movie Tile component", () => {
     expect(title).toBeInTheDocument();
     expect(releaseYear).toBeInTheDocument();
     expect(genres).toBeInTheDocument();
-  });
-
-  it("should call 'onClick' with movie id", () => {
-    render(<MovieTile {...MovieTileProps} />);
-
-    const { movieInfo, onPosterClick } = MovieTileProps;
-    const { id } = movieInfo;
-    const moviePoster = screen.getByRole("img");
-
-    userEvent.click(moviePoster);
-
-    expect(onPosterClick).toBeCalledWith(id);
   });
 });

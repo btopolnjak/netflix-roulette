@@ -1,15 +1,18 @@
 import { MovieDetailsProps } from "./MovieDetails.types";
-import { Poster } from "..";
 import { getReleaseYearFromDate } from "../../utilities";
+import Poster from "../Poster/Poster";
 import "./MovieDetails.scss";
 
 function MovieDetails({ movieInfo }: MovieDetailsProps) {
+  if (!movieInfo) return;
   const { title, voteAverage, genres, releaseDate, runtime, posterPath, overview } = movieInfo;
 
   const releaseYear = getReleaseYearFromDate(releaseDate);
   const genresList = genres.join(", ");
   const rating = voteAverage.toFixed(1);
   const duration = `${Math.floor(runtime / 60)}h ${runtime % 60}min`;
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <>
