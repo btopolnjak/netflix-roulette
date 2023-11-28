@@ -1,0 +1,97 @@
+@use "../../styles/colors";
+@use "../../styles/mixins.scss";
+
+.movie-form {
+  &__grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(6, auto);
+    grid-template-areas:
+      "title date"
+      "url rating"
+      "genre runtime"
+      "overview overview"
+      "overview overview"
+      "buttons buttons";
+  }
+
+  &__label {
+    color: colors.$red;
+    font-size: 1rem;
+    font-weight: 500;
+    display: block;
+    text-transform: uppercase;
+    line-height: 1.25rem;
+    letter-spacing: 0.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__input {
+    @include mixins.input;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 300;
+    color: colors.$white;
+    background-color: transparentize(colors.$gray, 0.9);
+  }
+
+  &__input:focus {
+    outline: none;
+    background-color: transparentize(colors.$gray, 0.6);
+  }
+
+  &__overview {
+    grid-area: overview;
+  }
+
+  &__overview-input {
+    @extend .movie-form__input;
+    resize: vertical;
+    min-height: 100%;
+  }
+
+  &__buttons {
+    grid-area: buttons;
+    margin-top: 2rem;
+    justify-self: end;
+  }
+
+  &__reset-button {
+    border-radius: 0.25rem;
+    padding: 1rem 3.5rem;
+    margin-right: 1rem;
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.524rem;
+    background-color: transparent;
+    border: solid 1px colors.$red;
+    color: colors.$red;
+    cursor: pointer;
+  }
+
+  &__confirm-button {
+    border-radius: 0.25rem;
+    padding: 1rem 3.5rem;
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.524rem;
+    background-color: colors.$red;
+    border: solid 1px colors.$red;
+    color: colors.$white;
+    cursor: pointer;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23F65261" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+    cursor: pointer;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}

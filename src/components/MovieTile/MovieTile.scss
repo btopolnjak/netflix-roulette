@@ -1,0 +1,72 @@
+@use "../../styles/colors";
+@use "../../styles/mixins";
+
+.movie-tile {
+  width: 300px;
+  color: colors.$light-gray;
+  font-size: 0.85rem;
+  font-family: "Montserrat", sans-serif;
+  display: grid;
+  position: relative;
+  grid-template-rows: 1fr min-content min-content;
+  grid-template-columns: 1fr min-content;
+  grid-template-areas:
+    "image image"
+    "name year"
+    "genre genre";
+
+  &__link {
+    grid-area: image;
+    background-color: colors.$light-gray;
+    margin-bottom: 1rem;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__name {
+    grid-area: name;
+    color: colors.$white;
+    font-size: 1.25rem;
+  }
+
+  &__year {
+    grid-area: year;
+    align-self: start;
+    border: solid 0.1rem colors.$gray;
+    border-radius: 0.25rem;
+    padding: 0.25rem 1rem;
+  }
+
+  &__genre {
+    grid-area: genre;
+    margin-top: 0.25rem;
+  }
+
+  &__button {
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.75rem;
+    background-color: colors.$red;
+    color: colors.$white;
+    cursor: pointer;
+  }
+
+  &__button-menu {
+    display: none;
+  }
+
+  &:hover &__button-menu {
+    display: block;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+}

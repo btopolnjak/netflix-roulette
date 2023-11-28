@@ -1,0 +1,31 @@
+@use "../../styles/colors";
+@use "../../styles/mixins.scss";
+
+.sort-control {
+  &__menu {
+    @include mixins.flex-vertical-center;
+    column-gap: 1rem;
+    position: relative;
+  }
+
+  &__title {
+    color: colors.$white;
+    font-family: "Montserrat", sans-serif;
+    text-transform: uppercase;
+    color: colors.$gray;
+  }
+
+  &__select {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: right;
+    color: colors.$white;
+    padding-right: 0.5rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    z-index: 1;
+  }
+}

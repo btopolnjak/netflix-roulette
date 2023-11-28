@@ -1,0 +1,46 @@
+@use "../../styles/colors";
+@use "../../styles/mixins";
+
+.search-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  padding: 5% 10%;
+  font-family: "Montserrat", sans-serif;
+
+  &__title {
+    grid-column: span 2;
+    color: colors.$white;
+    text-transform: uppercase;
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  &__button {
+    @include mixins.button;
+    color: colors.$white;
+    background: colors.$red;
+    max-width: min-content;
+  }
+
+  &__button:hover {
+    background: colors.$gray;
+  }
+
+  &__input {
+    @include mixins.input;
+    padding-left: 1rem;
+    font-size: 1.25rem;
+    line-height: 1.524rem;
+    color: colors.$white;
+    background-color: #323232;
+    mix-blend-mode: normal;
+    opacity: 0.5;
+  }
+
+  &__input:focus {
+    outline: none;
+    opacity: 1;
+  }
+}

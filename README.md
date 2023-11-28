@@ -1,30 +1,17 @@
-# React Fundamentals mentoring program Q3 2023
+# Getting Started with Netflix Roulette App
 
-Welcome to the repository for React mentoring program of Q3 2023, group of mentees Zsofia Dedeo, Boris Topolnjak and mentor Adam Pisky-Nagy.
+Frontend developed by [Figma design template](https://www.figma.com/file/fKGjrOqR6nJe6LYJopGCZ8/CDP-Home-Task-%E2%80%93-React-v1). In order to use it, please clone the [backend repository](https://github.com/VarvaraZadnepriak/MoviesAPI.ReactJS) and follow instructions to start the backend server before starting the frontend. **Netflix Roulette** is a single page app (SPA), which will allow users to search, view, add and delete movies from the Movies DB database.
 
-## Instructions
+## Available Scripts
 
-Please make sure to add this repository as one of your remotes with the following instructions:
+| Script          | Description                                                                                                                                                                            |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm start`     | Runs the app in the development mode.<br>Open [http://localhost:8080](http://localhost:8080) to view it in your browser.                                                               |
+| `npm test`      | Launches the test runner in the interactive watch mode.<br>See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information. |
+| `npm run build` | Builds the app for production to the _build_ folder.<br>The build is minified and the filenames include the hashes.                                                                    |
+| `npm run lint`  | Launches the ESLint test runner.<br>Visit [eslint.org](https://eslint.org/) for more information.                                                                                      |
+| `npm run wdio`  | Launches the App and runs E2E WebdriverIO test.<br>Visit [webdriver.io](https://webdriver.io/) for more information.                                                                   |
 
-In the root directory of your project type the following command:
+## App Preview
 
-git remote add mentoring https://gitbud.epam.com/adam_pisky-nagy/react-fundamentals-mentoring-q3-2023
-
-*you can choose to replace 'mentoring' in the above command as you like, this is your remote name
-
-After setting up the remote you will be able to push your progress via the git command:
-
-git push mentoring [YOUR_BRANCH_NAME]-task[TASK_NUMBER]
-
-[YOUR_BRANCH_NAME] is either zsofia or boris respectively, I have already set these up.
-  [TASK_NUMBER] is the task No.
-
-Please use the above branch naming format for each task (e.g. zsofia-task2).
-
-You can still push your changes to your own repository, if you have any with
-
-git push [YOUR_BRANCH_NAME]-task[TASK_NUMBER]
-  or
-  git push origin [YOUR_BRANCH_NAME]-task[TASK_NUMBER]
-
-When you push your progress to this repository and mark 'Needs review' on Learning portal I will review your changes and when everything is alright I will merge your task to your main branches(namely zsofia and boris), no need to worry about that in this repository. You can make changes to your own repository(if you are using one, which I highly recommend) as you wish, of course.
+![](./app-preview-desktop.png)

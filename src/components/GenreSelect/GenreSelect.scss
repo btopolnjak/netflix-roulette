@@ -1,0 +1,30 @@
+@use "../../styles/colors.scss";
+
+.genre-select {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  border-bottom: solid 0.125rem colors.$gray;
+
+  &__button {
+    display: none;
+  }
+
+  &__text {
+    display: inline-block;
+    color: colors.$white;
+    margin-right: 2rem;
+    height: 4rem;
+    line-height: 4rem;
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: colors.$white;
+    cursor: pointer;
+  }
+
+  &__button:checked + &__text {
+    border-bottom: solid 0.25rem colors.$red;
+  }
+}
